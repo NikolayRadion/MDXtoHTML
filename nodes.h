@@ -40,14 +40,22 @@ inline ostream& operator<<( ostream& out, const node_block& block )
 	}
 	else if ( strcmp( block.type.c_str(), "Define" ) == 0 )
 	{
-		out<<"<dl><dt>"<<block.tokens[1].text()<<"</dt><dd>"<<block.tokens[2].text()<<"</dd></dl>"<<endl;
+		out<<"<dl><dt>Def: "<<block.tokens[1].format_text()<<"</dt><dd>"<<block.tokens[2].format_text()<<"</dd></dl>"<<endl;
 	}
 	else if ( strcmp( block.type.c_str(), "Theorem" ) == 0 )
 	{
-		out<<"<dl class='theorem'><dt>"<<block.tokens[1].text()<<"</dt>\n";
-		if ( block.tokens.size() > 2 )
-			out<<"dd"<<block.tokens[2].text()<<"</dd>\n";
+		out<<"<dl class='theorem'><dt>Thm: "<<block.tokens[1].format_text()<<"</dt>\n";
+		if ( block.tokens.size() > 3 )
+			out<<"<dd>Proof: "<<block.tokens[3].format_text()<<"</dd>\n";
 		out<<"</dl>\n"<<endl;
+	}
+	else if ( strcmp( block.type.c_str(), "Note" ) == 0 )
+	{
+		out<<"<span class='theorem'>Note: "<<block.tokens[1].format_text()<<"</span>\n";
+	}
+	else if ( strcmp( block.type.c_str(), "Comment" ) == 0 )
+	{
+		out<<"<span class='comment'>Comment: "<<block.tokens[1].format_text()<<"</span>\n";
 	}
 	return out;
 }

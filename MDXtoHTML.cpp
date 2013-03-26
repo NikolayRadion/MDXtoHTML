@@ -1,18 +1,16 @@
+#include "stdafx.h"
+
 
 #include <iostream>
 #include <fstream>
 #include <string>
-
 #define __DBGOUTPUT__
-
 #include "service.h"
 #include "MDXparser.h"
 #include "Utils.h"
 #include "Compiler.h"
 
 using namespace std;
-
-
 
 int main( int argc, char* argv[] )
 {

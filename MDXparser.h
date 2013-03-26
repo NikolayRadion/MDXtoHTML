@@ -1,12 +1,15 @@
 #ifndef __MDXtoHTML_parser__
 #define __MDXtoHTML_parser__
 
+#include "stdafx.h"
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <algorithm>
 #include <vector>
-
 #include "Utils.h"
+#include "Formatter.h"
+
 using namespace std;
 
 enum TOKEN_TYPES
@@ -15,6 +18,8 @@ enum TOKEN_TYPES
 	ttDefine,
 	ttTheorem,
 	ttProof,
+	ttNote,
+	ttComment,
 	ttString,
 	ttText,
 	ttResWord,
@@ -31,7 +36,7 @@ class Token
 	friend class Lexer;
 	TOKEN_TYPES _type;
 	string _text;
-
+	Formatter formatter;
 public:
 	TOKEN_TYPES type() const
 	{
@@ -43,9 +48,14 @@ public:
 		return _text;
 	}
 
+	string format_text() const
+	{
+		return formatter.format(_text);
+	}
+
 	Token(): _type( ttUnknown ) {}
 	Token( const Token &other ): _type( other.type() ), _text( other.text() ) {}
-	Token( TOKEN_TYPES type, const string &text ): _type( type ), _text( text ) {}
+	Token( TOKEN_TYPES type, const string &text ): _type( type ), _text( text ), formatter() {}
 
 	Token& operator=(const Token &other)
 	{
@@ -107,6 +117,9 @@ class Lexer
 			// Фильтруем доказательства
 			if ( strcmp ( text.c_str(), "Proof:") == 0 )
 				return ttProof;
+			// Фильтруем замечания
+			if ( strcmp ( text.c_str(), "Note:") == 0 )
+				return ttNote;
 
 			return ttStructure;
 		}
@@ -151,6 +164,8 @@ public:
 							"ttDefine",	
 							"ttTheorem",
 							"ttProof",
+							"ttNote",
+							"ttComment",
 							"ttString",
 							"ttText",
 							"ttResWord",
@@ -186,7 +201,7 @@ public:
 			token = scan_token(text);
 
 			// Фильтруем плюсы, которые не являются маркерами списков
-			if ( token.text()[0] == '+' && _tokensBuffer[_tokensBuffer.size()-1].type() != ttTab )
+			if ( token.type() == ttStructure && token.text()[0] == '+' && _tokensBuffer[_tokensBuffer.size()-1].type() != ttTab )
 				token._type = ttString;
 
 
@@ -208,7 +223,7 @@ public:
 			}
 			else
 				_tokensBuffer.push_back( token );
-		} while ( token.text() != "end" );
+		} while ( token.text() != "end" ); // ToDo: Придумать, чем ограничивать лексер.
 
 		return true;
 	}

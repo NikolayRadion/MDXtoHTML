@@ -147,7 +147,7 @@ class Compiler
 				MACRO_ERROR_RET("Compiler:: void of '-' in Def: clause. String: " + cur_str() + ", token: " + cur_token(), 0);
 			
 			string def = _tokens[ptr].text().substr(0, sep );
-			string ine = _tokens[ptr].text().substr(sep, _tokens[ptr].text().length() - sep );
+			string ine = _tokens[ptr].text().substr(sep + 1, _tokens[ptr].text().length() - sep );
 
 			ta.push_back( Token(ttString, def) );
 			ta.push_back( Token(ttString, ine) );
@@ -164,9 +164,9 @@ class Compiler
 			ta.push_back( _tokens[ptr] );
 			nextToken(); nextToken();
 
-			/*
-			// Если есть доказательство, то и его засовываем
-			if ( _tokens[ptr].type() == ttProof )
+			// Если есть доказательство (еще 4 токена: Proof:, само доказательство и два разделителя), то и его засовываем
+			// ToDo: сделать доказательство блоком с отступом.
+			if ( _tokens[ptr].type() == ttProof && _tokens.size() > ptr + 2 )
 			{
 				ta.push_back( _tokens[ptr] );
 				nextToken(); nextToken();
@@ -174,7 +174,22 @@ class Compiler
 				ta.push_back( _tokens[ptr] );
 				nextToken(); nextToken();
 			}
-			*/
+		}
+		else if ( _tokens[ptr].type() == ttNote )
+		{
+			stype = "Note";
+			ta.push_back( _tokens[ptr] );
+			nextToken(); nextToken();
+			ta.push_back( _tokens[ptr] );
+			nextToken(); nextToken();
+		}
+		else if ( _tokens[ptr].type() == ttComment )
+		{
+			stype = "Comment";
+			ta.push_back( _tokens[ptr] );
+			nextToken(); nextToken();
+			ta.push_back( _tokens[ptr] );
+			nextToken(); nextToken();
 		}
 		else
 			MACRO_ERROR_RET("Compiler::Unknown type of node_block '" + _tokens[ptr].text() + "'. String: " + cur_str() + ", token: " + cur_token(), 0);

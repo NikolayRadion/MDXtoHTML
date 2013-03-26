@@ -9,14 +9,18 @@ By default output_file = out.html
 
 ## Description MDX
 I make MDX becouse I need some kind of writting university lectures, but LaTeX tremendous and basic MarkDown is limited for written lectures.
+
 ### Supported
 + from `#` to `####` - headers.
 + `---` - part separator.
-+ `Thm:` (without `Proof` yet) - Theorem statement and (in future) proof.
++ `Thm:` and `Proof` - Theorem statement and proof.
 + `Def:` - definition.
++ `Note` - note :)
++ `*some text*` - bold style.
+
 ### ToDo
 + `+` - list
-+ `*some text*` and `**some text**` - text style
++ `**some text**` - text style
 + `Ex:` - example
 + `Prop:` - properties
 + TeX chars like `\in`, `\subset` and `\phi`, of course

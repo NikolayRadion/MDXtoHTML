@@ -3,7 +3,9 @@
 
 #include <string>
 #include <iostream>
+#include <strstream>
 #include <fstream>
+#include "Utils.h"
 
 using namespace std;
 
@@ -11,8 +13,8 @@ using namespace std;
 *
 * Вытаскием параметры и открываем файлы для работы.
 * Ключи:
-*	-if -- входной файл. Обязательный параметр.
-*	-of -- выходной файл. Необязательный параметр. По умолчанию компилируем в out.html
+*	-i -- входной файл. Обязательный параметр.
+*	-o -- выходной файл. Необязательный параметр. По умолчанию компилируем в out.html
 */
 bool readConsoleParams( int argc, char* argv[], ifstream &input_file, ofstream &output_file )
 {
@@ -21,40 +23,42 @@ bool readConsoleParams( int argc, char* argv[], ifstream &input_file, ofstream &
 	bool dOutputFile = false;
 
 #ifdef __DBGOUTPUT__
-	cout<<"---readConsoleParams:---"<<endl;
+	MACRO_MESSAGE("---Command line:---\n");
+	//stringstream ss;
 #endif
-
 	for ( int i=1; i < argc; ++i )
 	{
 
 #ifdef __DBGOUTPUT__
-		cout<<i<<":"<<argv[i]<<endl;
+		//ss<<i<<":"<<argv[i]<<endl;
 #endif
 
-		if ( strcmp( argv[i], "-if" ) == 0 && argc > i + 1 )
+		if ( strcmp( argv[i], "-i" ) == 0 && argc > i + 1 )
 		{
 			inputFile = argv[i+1];
 			dInputFile = true;
 		}
 		
-		if ( strcmp( argv[i], "-of" ) == 0 && argc > i + 1 )
+		if ( strcmp( argv[i], "-o" ) == 0 && argc > i + 1 )
 		{
 			outputFile = argv[i+1];
 			dOutputFile = true;
 		}
 	}
+#ifdef __DBG__
+	//MACRO_MESSAGE(ss.string());
+#endif
 
 	if ( !dInputFile )
 	{
-		cout<<"Error: not defined input file."<<endl;
-		return false;
+		MACRO_ERROR_RET("Error: not defined input file.", false);
 	}
 	if ( !dOutputFile )
 		outputFile = "out.html";
 
 #ifdef __DBGOUTPUT__
-	cout<<"In: "<<inputFile<<endl;
-	cout<<"Out: "<<outputFile<<endl<<"---------"<<endl;
+	MACRO_MESSAGE("In: " + inputFile + "\n" );
+	MACRO_MESSAGE("Out: "+ outputFile + "\n---------\n");
 #endif
 
 	input_file = ifstream(inputFile);
