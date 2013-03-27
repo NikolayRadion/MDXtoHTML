@@ -17,11 +17,11 @@ I make MDX becouse I need some kind of writting university lectures, but LaTeX t
 + `Def:` - definition.
 + `Note` - note :)
 + `*some text*` - bold style.
++ TeX chars like `\in`, `\subset`, `\phi` and other.
 
 ### ToDo
 + `+` - list
 + `**some text**` - text style
 + `Ex:` - example
 + `Prop:` - properties
-+ TeX chars like `\in`, `\subset` and `\phi`, of course
-+ and so and forth
++ and so and so forth

@@ -32,10 +32,10 @@ int main( int argc, char* argv[] )
 	// ƒанные дл€ лексера пока тут. Ќужно будет куда-нибудь засунуть дл€ удобного изменени€
 	string res_words[] = { "reserve" };
 	string structures[] = { "Def:", "Ex:", "Thm:", "Proof:", "Note:", "Comment:", "Task:", "Table:", "#", "##", "###", "####", "######", "+", "---", "*", "**" };
-	string deviders[] = { " ", "\n", "{", "}", "\t"};
+	string deviders[] = { " ", "\n", "\t"}; // "{", "}",
 	// «апускаем лексический анализатор
 	Lexer lex;
-	lex.Init( res_words, 1, structures, 17, deviders, 5 );
+	lex.Init( res_words, 1, structures, 17, deviders, 3 );
 
 	string text;
 	while ( !input_file.eof() )
