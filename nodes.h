@@ -57,6 +57,10 @@ inline ostream& operator<<( ostream& out, const node_block& block )
 	{
 		out<<"<span class='comment'>Comment: "<<block.tokens[1].format_text()<<"</span>\n";
 	}
+	else if ( strcmp( block.type.c_str(), "Example" ) == 0 )
+	{
+		out<<"<div class='example'>Example: "<<block.tokens[1].format_text()<<"</div>\n";
+	}
 	return out;
 }
 

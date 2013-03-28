@@ -191,6 +191,14 @@ class Compiler
 			ta.push_back( _tokens[ptr] );
 			nextToken(); nextToken();
 		}
+		else if ( _tokens[ptr].type() == ttExample )
+		{
+			stype = "Example";
+			ta.push_back( _tokens[ptr] );
+			nextToken(); nextToken();
+			ta.push_back( _tokens[ptr] );
+			nextToken(); nextToken();
+		}
 		else
 			MACRO_ERROR_RET("Compiler::Unknown type of node_block '" + _tokens[ptr].text() + "'. String: " + cur_str() + ", token: " + cur_token(), 0);
 

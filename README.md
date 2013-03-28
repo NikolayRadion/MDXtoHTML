@@ -16,12 +16,12 @@ I make MDX becouse I need some kind of writting university lectures, but LaTeX t
 + `Thm:` and `Proof` - Theorem statement and proof.
 + `Def:` - definition.
 + `Note` - note :)
++ `Ex:` - example
 + `*some text*` - bold style.
-+ TeX chars like `\in`, `\subset`, `\phi` and other.
++ TeX chars like `\in`, `\subset` and `\phi`
 
 ### ToDo
 + `+` - list
 + `**some text**` - text style
-+ `Ex:` - example
 + `Prop:` - properties
-+ and so and so forth
++ and so and forth

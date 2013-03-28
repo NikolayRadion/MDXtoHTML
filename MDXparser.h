@@ -20,6 +20,7 @@ enum TOKEN_TYPES
 	ttProof,
 	ttNote,
 	ttComment,
+	ttExample,
 	ttString,
 	ttText,
 	ttResWord,
@@ -120,6 +121,9 @@ class Lexer
 			// Фильтруем замечания
 			if ( strcmp ( text.c_str(), "Note:") == 0 )
 				return ttNote;
+			// Фильтруем примеры
+			if ( strcmp ( text.c_str(), "Ex:") == 0 )
+				return ttExample;
 
 			return ttStructure;
 		}
@@ -166,6 +170,7 @@ public:
 							"ttProof",
 							"ttNote",
 							"ttComment",
+							"ttExample",
 							"ttString",
 							"ttText",
 							"ttResWord",
