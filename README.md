@@ -21,7 +21,8 @@ I make MDX becouse I need some kind of writting university lectures, but LaTeX t
 + TeX chars like `\in`, `\subset` and `\phi`
 
 ### ToDo
-+ `+` - list
-+ `**some text**` - text style
++ `+` and `*` - numbered and bulleted lists
++ `**some text**` - italic style
 + `Prop:` - properties
++ nested blocks like in python :)
 + and so and forth
